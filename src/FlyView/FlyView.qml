@@ -124,7 +124,7 @@ Item {
             z:                      _fullItemZorder + 2 // we need to add one extra layer for map 3d viewer (normally was 1)
             parentToolInsets:       _toolInsets
             mapControl:             _mapControl
-            visible:                !QGroundControl.videoManager.fullScreen
+            visible:                !QGroundControl.videoManager.fullScreen && false
             isViewer3DOpen:         viewer3DWindow.isOpen
         }
 
@@ -135,6 +135,102 @@ Item {
             parentToolInsets:   widgetLayer.totalToolInsets
             mapControl:         _mapControl
             visible:            !QGroundControl.videoManager.fullScreen
+
+            Rectangle {
+                width: 280
+                height: 70
+                radius: 10
+                color: "#1e1e1e"
+                opacity: 0.0
+
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: 12
+
+                border.color: "#00e5ff"
+                border.width: 1
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "FlyView"
+                    color: "white"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: controlPanel
+                width: 300
+                height: 140
+                radius: 10
+                color: "#121212"
+                opacity: 0.95
+
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: 90
+
+                border.color: "#00e5ff"
+                border.width: 1
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 12
+                    Text {
+                        text: _activeVehicle ? "Mode: " + _activeVehicle.flightMode : "No Vechicle"
+                        color: "white"
+                        font.pixelSize: 14
+                    }
+
+                    Row {
+                        spacing: 12
+
+                        Button {
+                            text: _activeVehicle && _activeVehicle.armed ? "DISARM" : "ARM"
+                            enabled: _activeVehicle !== null
+
+                            onClicked: {
+                                if (_activeVehicle.armed) {
+                                    _activeVehicle.disarm()
+                                } else {
+                                    _activeVehicle.arm()
+                                }
+                            }
+                        }
+
+                        Button {
+                            text: "RTL"
+                            enabled: _activeVehicle !== null
+                            onClicked: _activeVehicle.guidedModeRTL()
+                        }
+
+                        Button {
+                            text: "LAND"
+                            enabled: _activeVehicle !== null
+                            onClicked: _activeVehicle.guidedModeLand()
+                        }
+                    }
+
+                    Text {
+                        text: _activeVehicle && _activeVehicle.altitudeRelative !== undefined ? "Alt: " + _activeVehicle.altitudeRelative.toFixed(1) + " m" : "Alt: --"
+                        color: "white"
+                        font.pixelSize: 13
+                    }
+
+                    Text {
+                        text: _activeVehicle ? "Battery: " + Math.round(_activeVehicle.battery.percentRemaining) + "%" : "Battery: --"
+                        color: "white"
+                        font.pixelSize: 13
+                    }
+
+                    Text {
+                        text: _activeVehicle && _activeVehicle.gps ? "GPS Fix: " + _activeVehicle.gps.fixType : "GPS: --"
+                        color: "white"
+                        font.pixelSize: 13
+                    }
+                }
+            }
         }
 
         // Development tool for visualizing the insets for a paticular layer, show if needed
@@ -185,7 +281,7 @@ Item {
 
     FlyViewToolBar {
         id:                 toolbar
-        guidedValueSlider:  _guidedValueSlider
+        guidedValueSlider: _guidedValueSlider
         utmspSliderTrigger: utmspSendActTrigger
         visible:            !QGroundControl.videoManager.fullScreen
     }
