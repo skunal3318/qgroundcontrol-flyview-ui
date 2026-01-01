@@ -1,6 +1,4 @@
-# ============================================================================
-# BuildConfig.cmake - Read .github/build-config.json
-# ============================================================================
+
 
 set(QGC_BUILD_CONFIG_FILE "${CMAKE_SOURCE_DIR}/.github/build-config.json")
 
