@@ -1,7 +1,4 @@
-# ============================================================================
-# QGroundControl Build Configuration Options
-# All options can be overridden by custom builds via CustomOverrides.cmake
-# ============================================================================
+
 
 include(CMakeDependentOption)
 
