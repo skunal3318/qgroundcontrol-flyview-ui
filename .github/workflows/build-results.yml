@@ -109,7 +109,7 @@ jobs:
 
       - name: Download artifacts from triggering workflow
         if: steps.pr.outputs.result != 'null'
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         continue-on-error: true
         with:
           run-id: ${{ github.event.workflow_run.id }}
@@ -334,7 +334,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         continue-on-error: true
         with:
           run-id: ${{ github.event.workflow_run.id }}
