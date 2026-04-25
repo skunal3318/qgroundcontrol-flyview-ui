@@ -34,7 +34,7 @@ jobs:
           config_timezone: UTC
 
       - name: Upload metrics artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: repo-metrics-${{ github.run_id }}
           path: ./metrics.svg

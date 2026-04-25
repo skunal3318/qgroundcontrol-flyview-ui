@@ -29,7 +29,7 @@ jobs:
           cache-key: flatpak-builder-${{ github.sha }}
 
       - name: Upload Flatpak
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: QGroundControl-flatpak
           path: QGroundControl.flatpak
