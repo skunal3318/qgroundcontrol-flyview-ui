@@ -56,7 +56,7 @@ jobs:
         if: |
           steps.title_check.outcome == 'failure' &&
           github.event.pull_request.user.type != 'Bot'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           result-encoding: string
           script: |
@@ -114,7 +114,7 @@ jobs:
 
       - name: Comment title suggestion
         if: steps.title_check.outcome == 'failure' && steps.suggest.outputs.response
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           SUGGESTED_TITLE: ${{ steps.suggest.outputs.response }}
         with:
@@ -184,7 +184,7 @@ jobs:
 
       - name: Minimize suggestion if title valid
         if: steps.title_check.outcome == 'success'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const pr = context.payload.pull_request;

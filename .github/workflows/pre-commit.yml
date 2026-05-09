@@ -76,7 +76,7 @@ jobs:
       - name: Comment on PR
         if: github.event_name == 'pull_request' && always()
         continue-on-error: true  # Fork PRs don't have write permissions
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           EXIT_CODE: ${{ steps.pre-commit.outputs.exit_code }}
           PASSED: ${{ steps.pre-commit.outputs.passed }}
